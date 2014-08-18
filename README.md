@@ -14,7 +14,7 @@ $ sudo docker build -t="docker-biohadoop" .
 ```
 
 ## Usage
-docker-biohadoop provides two scripts, locate in the scripts directory, that can be used to start and stop docker-biohadoop instances. Those scripts need to be executable:
+docker-biohadoop provides two scripts, located in the scripts directory, that can be used to start and stop docker-biohadoop instances. Those scripts need to be executable:
 
 ```
 $ chmod +x scripts/*.sh
