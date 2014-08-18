@@ -37,7 +37,7 @@ ENV HADOOP_HOME /opt/hadoop/current
 
 # fixing the libhadoop.so
 RUN rm  $HADOOP_HOME/lib/native/*
-RUN curl -L http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.5.0.tar --progress-bar |tar -x -C  $HADOOP_HOME/lib/native/
+RUN curl -L http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.5.0.tar --progress-bar |tar -xz -C  $HADOOP_HOME/lib/native/
 
 # set hadoop configs
 ADD hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh

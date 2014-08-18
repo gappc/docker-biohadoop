@@ -19,8 +19,8 @@ COUNTER=$1
 for i in $(seq 1 $COUNTER)
 do
   echo Starting slave$i...
-  gnome-terminal --title="slave$i" --window-with-profile=slave --command "docker run --privileged -h slave$i -i -t $2"
+  gnome-terminal --title="slave$i" --window-with-profile=slave --command "docker run --privileged -h slave$i -i -t docker-biohadoop"
 done
 
 echo Starting master...
-gnome-terminal --title="master" --window-with-profile=master --command "docker run --privileged -h master -e SLAVES=$1 -i -t $2"
+gnome-terminal --title="master" --window-with-profile=master --command "docker run --privileged -h master -e SLAVES=$1 -i -t docker-biohadoop"
