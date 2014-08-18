@@ -56,4 +56,4 @@ $ scripts/docker-stop-all.sh
 ```
 
 ## SSH access
-The master node is accessible with user `root`, a password is generated on each startup and printed on the terminal.
+The master node is accessible with user `root`, a password is generated on each startup and printed on the terminal. Consider adding your SSH key to the Dockerfile if you are going to use docker-biohadoop often.
