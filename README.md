@@ -29,7 +29,24 @@ $ scripts/docker-run-hadoop.sh 2
 ```
 starts one Docker container as Hadoop master and 2 Docker containers as Hadoop slaves. Note that also the master is used for computational purposes. Therefor, Hadoop has 3 machines for computation with the settings above.
 
-After invoking docker-run-hadoop.sh, a gnome-terminal is started for every Docker container. The master containers terminal has a red color, the slaves terminals are yellow. The master container starts the Hadoop environment, which may take some time (depending on the hardware, but also on the number of slaves). After this initialisation, the hadoop cluster is ready for usage.
+After invoking docker-run-hadoop.sh, a gnome-terminal is started for every Docker container. The master containers terminal has a red color, the slaves terminals are yellow. The master container starts the Hadoop environment, which may take some time (depending on the hardware, but also on the number of slaves). After this initialisation, the hadoop cluster is ready for usage. Try to invoke the command jps on all running containers to look if Hadoop is running
+
+```
+$ jps
+```
+
+On the master node, it should output:
+* `DataNode`
+* `JobHistoryServer`
+* `NodeManager`
+* `NameNode`
+* `QuorumPeerMain`
+* `ResourceManager`
+* `SecondaryNameNode`
+
+On the slave nodes it should output
+* `DataNode`
+* `NodeManager`.
 
 ### docker-stop-all.sh
 Stops all running Docker containers and removes their interfaces from host.
