@@ -70,7 +70,7 @@ ENV ZOOKEEPER_HOME /opt/zookeeper/current
 ADD zoo.cfg $ZOOKEEPER_HOME/conf/zoo.cfg
 
 # Set root password to enable ssh connection with password
-RUN 'root:biohadoop' | chpasswd
+RUN echo 'root:biohadoop' | chpasswd
 
 # Configure passwordless ssh for Hadoop
 RUN mkdir -p /root/.ssh
@@ -78,11 +78,9 @@ RUN mkdir -p /var/run/sshd
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
-# Add public keys to authorized keys
+# Add public keys to authorized keys. Here you can add our own keys, if you don't want to type the password all the time
 ADD gappc.pub /tmp/gappc.pub
-#ADD root.pub /tmp/root.pub
 RUN cat /tmp/gappc.pub >> /root/.ssh/authorized_keys
-#RUN cat /tmp/root.pub >> /root/.ssh/authorized_keys
 
 ADD sshd_config /etc/ssh/sshd_config
 RUN echo LANG=”en_US.UTF-8” > /etc/default/locale
