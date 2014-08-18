@@ -14,14 +14,18 @@ $ sudo docker build -t="docker-biohadoop" .
 ```
 
 ## Usage
-docker-biohadoop provides two scripts that can be used to start and stop docker-biohadoop instances
+docker-biohadoop provides two scripts inthe scripts directory that can be used to start and stop docker-biohadoop instances. Those scripts need to be executable:
+
+```
+$ chmod +x scripts/*.sh
+```
 
 ### docker-run-hadoop.sh (depends on installed gnome-terminal)
 Use this script to start a number of Hadoop instances. It takes the number of slaves (nr-of-slaves) as argument. The script starts one Docker container as Hadoop master and additional nr-of-slaves Docker containers as Hadoop slaves.
 
 e.g.
 ```
-$ bin/docker-run-hadoop.sh 2
+$ scripts/docker-run-hadoop.sh 2
 ```
 starts one Docker container as Hadoop master and 2 Docker containers as Hadoop slaves. Note that also the master is used for computational purposes. Therefor, Hadoop has 3 machines for computation with the settings above.
 
@@ -31,5 +35,5 @@ After invoking docker-run-hadoop.sh, a gnome-terminal is started for every Docke
 Stops all running Docker containers and removes their interfaces from host.
 
 ```
-$ bin/docker-stop-all.sh
+$ scripts/docker-stop-all.sh
 ```
