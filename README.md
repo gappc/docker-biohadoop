@@ -54,3 +54,6 @@ Stops all running Docker containers and removes their interfaces from host.
 ```
 $ scripts/docker-stop-all.sh
 ```
+
+## SSH access
+The master node is accessible with user `root`, a password is generated on each startup and printed on the terminal.
