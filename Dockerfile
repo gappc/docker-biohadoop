@@ -1,8 +1,8 @@
 #
-# Creates distributed hadoop-2.4.1 + oozie-4.0.1 + zookeeper-3.4.6 in ubuntu
+# Creates distributed hadoop-2.5.0 + oozie-4.0.1 + zookeeper-3.4.6 in ubuntu
 # Based on sequenceiq/hadoop-docker (https://index.docker.io/u/sequenceiq/hadoop-docker/)
 #
-# VERSION 0.4
+# VERSION 0.5
 
 FROM ubuntu
 MAINTAINER gappc <gapp.christian@gmail.com>
@@ -30,14 +30,14 @@ RUN apt-get install -y curl openssh-server
 
 # install hadoop
 RUN mkdir -p /opt/hadoop
-RUN curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.4.1/hadoop-2.4.1.tar.gz --progress-bar | tar -xz -C /opt/hadoop/
-RUN cd /opt/hadoop/ && ln -s hadoop-2.4.1 current
+RUN curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.5.0/hadoop-2.5.0.tar.gz --progress-bar | tar -xz -C /opt/hadoop/
+RUN cd /opt/hadoop/ && ln -s hadoop-2.5.0 current
 ENV HADOOP_PREFIX /opt/hadoop/current
 ENV HADOOP_HOME /opt/hadoop/current
 
 # fixing the libhadoop.so
 RUN rm  $HADOOP_HOME/lib/native/*
-RUN curl -L http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.4.1.tar --progress-bar |tar -x -C  $HADOOP_HOME/lib/native/
+RUN curl -L http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.5.0.tar --progress-bar |tar -x -C  $HADOOP_HOME/lib/native/
 
 # set hadoop configs
 ADD hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
