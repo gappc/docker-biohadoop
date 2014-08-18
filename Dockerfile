@@ -69,9 +69,6 @@ ENV ZOOKEEPER_HOME /opt/zookeeper/current
 # Set zookeeper config
 ADD zoo.cfg $ZOOKEEPER_HOME/conf/zoo.cfg
 
-# Set root password to enable ssh connection with password
-RUN echo 'root:biohadoop' | chpasswd
-
 # Configure passwordless ssh for Hadoop
 RUN mkdir -p /root/.ssh
 RUN mkdir -p /var/run/sshd
@@ -101,6 +98,9 @@ ADD docker-run.sh /sbin/docker-run.sh
 RUN chmod u+x /sbin/docker-run.sh
 ADD biohadoop-copy.sh /sbin/biohadoop-copy.sh
 RUN chmod u+x /sbin/biohadoop-copy.sh
+
+# Install pwgen to dynamically create root passwords on startup
+RUN apt-get install -y pwgen
 
 # Run standard command
 CMD ["/sbin/docker-run.sh"]

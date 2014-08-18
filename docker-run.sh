@@ -1,21 +1,20 @@
 #!/bin/bash
 
-# start services
+# Start services
 /usr/sbin/rsyslogd
 /usr/sbin/sshd
 
-# set custom hosts file. this works only in a privileged container!
+# Set custom hosts file. this works only in a privileged container!
 umount /etc/hosts
 cp /tmp/hosts /etc
 
-# add interface for hadoop with the ip address set to the one specified in /etc/hosts
+# Add interface for hadoop with the ip address set to the one specified in /etc/hosts
 IP_ADDRESS=`cat /etc/hosts | grep $HOSTNAME$ | cut -d' ' -f 1`
 echo $IP_ADDRESS
 ifconfig eth0 $IP_ADDRESS
 route add default gw 172.17.42.1
 
-# add slave ssh keys to list of known hosts
-# start hadoop
+# Add slave ssh keys to list of known hosts and start hadoop
 if [ "$HOSTNAME" == "master" ]
 then
   ssh-keyscan 0.0.0.0 >> /root/.ssh/known_hosts
@@ -35,11 +34,18 @@ then
   $HADOOP_HOME/bin/hdfs dfs -copyFromLocal /opt/oozie/oozie-4.0.1/examples /user/root
   $OOZIE_HOME/bin/oozied.sh start
   
-  # start ZooKeeper
+  # Start ZooKeeper
   $ZOOKEEPER_HOME/bin/zkServer.sh start
+  
+  # Set custom password
+  PASSWORD=`pwgen -N 1`
+  echo "root:$PASSWORD" | chpasswd
+  echo "*****************************"
+  echo "* Root password is $PASSWORD *"
+  echo "*****************************"
 fi
 
-# set timezone
+# Set timezone
 echo "Europe/Vienna" > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
