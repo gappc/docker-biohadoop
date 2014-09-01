@@ -7,7 +7,7 @@ then
   exit $?
 fi
 
-docker ps | grep "$1" | awk '{print $1}' | xargs docker kill
+docker ps -q | xargs docker kill
 
 for i in `sudo ip a | grep veth | awk '{print $2}' | cut -d':' -f 1`
 do
